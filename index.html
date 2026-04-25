@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OrderBot Proposal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; margin: 0; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; }
+    .slide {
+      width: 1280px; height: 720px; background: white; border-radius: 16px; margin: 20px 0;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1); padding: 60px 80px; box-sizing: border-box;
+      page-break-after: always; position: relative; overflow: hidden;
+    }
+    .slide:last-child { page-break-after: avoid; }
+    h1 { font-size: 42px; color: #1a2b4c; margin-bottom: 20px; font-weight: 700; }
+    h2 { font-size: 32px; color: #1a2b4c; margin-bottom: 30px; }
+    p, li { font-size: 20px; line-height: 1.6; color: #333; }
+    .bad { background: #ffe5e5; border-left: 6px solid #e63946; padding: 15px 25px; border-radius: 8px; margin: 25px 0; }
+    .good { background: #e5ffe5; border-left: 6px solid #2a9d8f; padding: 15px 25px; border-radius: 8px; margin: 25px 0; }
+    .flex { display: flex; gap: 40px; align-items: flex-start; }
+    .flowchart { width: 100%; margin: 30px 0; }
+    .arrow-down { text-align: center; font-size: 28px; color: #666; }
+    .step { background: #f8f9fa; border-radius: 12px; padding: 12px 20px; margin: 8px 0; display: flex; justify-content: space-between; border: 1px solid #ccc; }
+    .step-red { border-left: 5px solid #e63946; background: #fff5f5; }
+    .step-green { border-left: 5px solid #2a9d8f; }
+    .step-blue { border-left: 5px solid #1a73e8; }
+    .chip { background: #e0e7ff; color: #1a2b4c; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+    img, svg { max-width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <h1>🔴 The Problem: Our Current Order Process Is a Bottleneck</h1>
+    <div class="flex">
+      <div style="flex: 1.2;">
+        <p><strong>Every new hardware order follows a fragile, manual path:</strong></p>
+        <div class="flowchart">
+          <div class="step step-red">📧 <strong>Email Reception</strong> <span class="chip">Manual</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="step step-red">📄 <strong>Read PDF</strong> <span class="chip">Manual</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="step step-red">🔍 <strong>Check Salesforce</strong> <span class="chip">Manual</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="step step-red">📊 <strong>Check Google Sheets</strong> <span class="chip">Manual</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="step step-red">🧠 <strong>Decision Point</strong> <span class="chip">Human</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="flex" style="gap:10px;">
+            <div style="flex:1; background:#f0f8ff; padding:10px; border-radius:8px;">✅ OK → Two manual emails</div>
+            <div style="flex:1; background:#ffe5e5; padding:10px; border-radius:8px;">❌ Problem → Email sales rep (delay)</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 0.8;">
+        <div class="bad">
+          <h3>⚠️ Critical Pain Points</h3>
+          <ul>
+            <li><strong>Delay:</strong> 2‑4 hours per order, often next day</li>
+            <li><strong>Errors:</strong> Mis‑typed emails, miss‑checked inventory</li>
+            <li><strong>Staff drain:</strong> 15+ hours/week wasted on copy‑paste</li>
+            <li><strong>No visibility:</strong> No one knows order status until an email is sent</li>
+          </ul>
+        </div>
+        <p style="font-size:16px; color:#666;">*Current state: ~20 orders/day, 1.5 full‑time roles absorbed by manual triage.</p>
+      </div>
+    </div>
+    <p style="color:#e63946; font-weight:600; margin-top:20px;">🔻 This is the biggest blocker in our hardware fulfillment pipeline.</p>
+  </div>
+
+  <div class="slide">
+    <h1>🤖 The Solution: Introducing 'OrderBot'</h1>
+    <div class="flex">
+      <div style="flex:1;">
+        <p><strong>An autonomous AI agent that handles the entire order intake process in seconds.</strong></p>
+        <div class="flowchart">
+          <div class="step step-green">📧 <strong>Detect new order email</strong> <span class="chip">Tool: Email API</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="step step-green">📄 <strong>Parse PDF & extract data</strong> <span class="chip">Tool: PDF Parser</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="step step-green">🔍 <strong>Check customer status (Salesforce)</strong> <span class="chip">Tool: Salesforce API</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="step step-green">📊 <strong>Check inventory (Google Sheets)</strong> <span class="chip">Tool: Sheets API</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="step step-blue">🧠 <strong>AI Decision</strong> <span class="chip">Autonomous</span></div>
+          <div class="arrow-down">↓</div>
+          <div class="flex" style="gap:10px;">
+            <div style="flex:1; background:#e5ffe5; padding:10px; border-radius:8px;">✅ All clear → Auto‑send two emails</div>
+            <div style="flex:1; background:#fff3cd; padding:10px; border-radius:8px;">⚠️ Issue → Flag for human, notify sales rep</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:0.9;">
+        <div class="good">
+          <h3>✨ How It Works (Plain English)</h3>
+          <ul>
+            <li><strong>Goal:</strong> Process every order within 5 minutes, 99.5% accuracy</li>
+            <li><strong>Eyes & Ears:</strong> It monitors the inbox, reads PDFs, and talks to Salesforce & Sheets.</li>
+            <li><strong>Brain:</strong> It checks rules (account active? stock >0?) and decides instantly.</li>
+            <li><strong>Hands:</strong> It sends the correct emails and updates records automatically.</li>
+            <li><strong>Safety Net:</strong> If anything is unclear, it pauses and alerts the ops team.</li>
+          </ul>
+        </div>
+        <p style="margin-top:20px;"><strong>OrderBot works 24/7, never forgets an attachment, and never skips a check.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h1>📈 The Business Impact & Next Steps</h1>
+    <div class="flex" style="gap:50px;">
+      <div style="flex:1;">
+        <h2>Measurable Gains</h2>
+        <table style="width:100%; font-size:18px; border-collapse:collapse;">
+          <tr style="background:#f0f7ff;"><td style="padding:10px;">⏱️ Processing time</td><td style="padding:10px;"><strong>Hours → 2‑3 minutes</strong></td></tr>
+          <tr><td style="padding:10px;">✅ Accuracy</td><td style="padding:10px;"><strong>95% → >99.5%</strong></td></tr>
+          <tr style="background:#f0f7ff;"><td style="padding:10px;">💰 Staff cost saved</td><td style="padding:10px;"><strong>~20 hrs/week → $XX,000/year</strong></td></tr>
+          <tr><td style="padding:10px;">😊 Customer NPS</td><td style="padding:10px;"><strong>Faster confirmations → +15 pts</strong></td></tr>
+        </table>
+        <div class="good" style="margin-top:30px;">
+          <h3>💡 Recommended Next Step</h3>
+          <p><strong>Read‑only Proof of Concept (4‑6 weeks)</strong><br>
+          Let OrderBot process a copy of live emails under human supervision. It will read, parse, and recommend actions – but only a human will click "approve". This validates accuracy and builds trust before full automation.</p>
+        </div>
+      </div>
+      <div style="flex:0.8; background:#f8f9fa; padding:25px; border-radius:16px;">
+        <h2>Why This Matters</h2>
+        <ul>
+          <li><strong>Scale without hiring:</strong> Handle 3× order volume with same team.</li>
+          <li><strong>Zero "lost" orders:</strong> Every email is tracked and audited.</li>
+          <li><strong>Happy staff:</strong> Repetitive grunt work eliminated – they can focus on exceptions and customer relationships.</li>
+          <li><strong>Competitive edge:</strong> Same‑day fulfillment becomes the norm.</li>
+        </ul>
+        <p style="font-style:italic; margin-top:30px;">"This isn't a headcount reduction – it's a talent upgrade for the whole ops team."</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
